@@ -1,5 +1,5 @@
 {
-    "name": "codeages/aliyun-php-sdk",
+    "name": "l1l31/aliyun-php-sdk",
     "type": "library",
     "autoload": {
         "psr-4": {
