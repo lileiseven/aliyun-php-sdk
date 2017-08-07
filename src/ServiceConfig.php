@@ -2,12 +2,18 @@
 
 namespace Aliyun\SDK;
 
+use Aliyun\SDK\Exception\SDKException;
+
 class ServiceConfig
 {
     protected $config = [
         'cdn' => [
             'entrypoint' => 'http://cdn.aliyuncs.com/',
             'version' => '2014-11-11',
+        ],
+        'domain' => [
+            'entrypoint' => 'http://domain.aliyuncs.com/',
+            'version' => '2016-05-11',
         ]
     ];
 

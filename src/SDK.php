@@ -20,21 +20,23 @@ use Psr\Log\LogLevel;
 
 class SDK
 {
-    protected $accessKeyId;
+    private $accessKeyId;
 
-    protected $accessSecret;
+    private $accessSecret;
 
     /**
      * @var Psr\Log\LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
-    protected $debug;
+    private $debug;
 
     /**
      * @var ServiceConfig
      */
-    protected $config;
+    private $config;
+
+    private $clients;
 
     /**
      * SDK 构造函数
@@ -67,7 +69,7 @@ class SDK
      */
     public function call($service, $action, $params = [])
     {
-        $client = $this->getClient($service);
+        $client = $this->createClient($service);
 
         try {
             $response = $client->get('/', [
@@ -84,8 +86,12 @@ class SDK
         return \GuzzleHttp\json_decode((string)$response->getBody(), true);
     }
 
-    protected function getClient($service)
+    protected function createClient($service)
     {
+        if (isset($this->clients[$service])) {
+            return $this->clients[$service];
+        }
+
         $config = $this->config->get($service);
 
         $stack = new HandlerStack(\GuzzleHttp\choose_handler());
@@ -105,14 +111,14 @@ class SDK
         }
 
         $stack->push(Middleware::httpErrors(), 'http_errors');
-        // $stack->push(Middleware::redirect(), 'allow_redirects');
-        // $stack->push(Middleware::cookies(), 'cookies');
         $stack->push(Middleware::prepareBody(), 'prepare_body');
 
         $client = new Client([
             'base_uri' => $config['entrypoint'],
             'handler' => $stack,
         ]);
+
+        $this->clients[$service] = $client;
 
         return $client;
     }
