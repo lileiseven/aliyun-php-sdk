@@ -18,6 +18,8 @@ $ composer require l1l31/aliyun-php-sdk
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Aliyun\SDK\SDK;
+use Aliyun\SDK\Exception\SDKException;
+use Aliyun\SDK\Exception\ResponseException;
 
 $logger = new Logger('aliyun');
 $logger->pushHandler(new StreamHandler('/tmp/aliyun-php-sdk.log', Logger::INFO));
@@ -28,6 +30,17 @@ $sdk = new SDK('<ACCESS KEY ID>', '<ACCESS SECRET>', $logger);
 $result = $sdk->call('domain', 'GetWhoisInfo', [
     'DomainName' => 'aliyun.com',
 ]);
+
+try {
+    $result = $sdk->call('domain', 'ErrorAction');
+} catch (ResponseException $e) {
+    // 获取错误信息
+    $error = $e->getResponseData();
+    // ...
+} catch (SDKException $e) {
+    // ...
+}
+
 ```
 
 ## 单元测试
