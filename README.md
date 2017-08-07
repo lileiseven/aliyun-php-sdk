@@ -1,5 +1,7 @@
 # Aliyun PHP SDK
 
+[![Build Status](https://travis-ci.org/l1l31/aliyun-php-sdk.svg?branch=master)](https://travis-ci.org/l1l31/aliyun-php-sdk)
+
 由于阿里云官方的SDK不支持 Composer 安装，对在项目中的集成造成了极大的困难，所以才有了此项目。
 
 ## 安装
