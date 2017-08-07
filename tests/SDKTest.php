@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-
 use Aliyun\SDK\SDK;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -23,7 +22,7 @@ class SDKTest extends TestCase
     }
 
     /**
-     * @expectedException Aliyun\SDK\Exception\SDKException
+     * @expectedException \Aliyun\SDK\Exception\SDKException
      */
     public function testCall_ErrorServiceName()
     {

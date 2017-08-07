@@ -1,4 +1,5 @@
 <?php
+
 namespace Aliyun\SDK\Exception;
 
 use GuzzleHttp\Exception\ConnectException as GuzzleConnectException;

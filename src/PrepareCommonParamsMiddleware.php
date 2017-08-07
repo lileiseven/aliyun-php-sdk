@@ -17,6 +17,7 @@ class PrepareCommonParamsMiddleware
     {
         return function ($request, array $options) use ($handler) {
             $request = $this->onBefore($request);
+
             return $handler($request, $options);
         };
     }
@@ -38,6 +39,7 @@ class PrepareCommonParamsMiddleware
         $params['Signature'] = $this->getSignature($request, $params);
         $query = \GuzzleHttp\Psr7\build_query($params);
         $request = $request->withUri($request->getUri()->withQuery($query));
+
         return $request;
     }
 
@@ -46,8 +48,9 @@ class PrepareCommonParamsMiddleware
         //参数排序
         ksort($params);
         $query = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
-        $source = $request->getMethod() . '&%2F&' . $this->percentEncode($query);
-        return base64_encode(hash_hmac('sha1', $source, $this->config['accessSecret'] . '&', true));
+        $source = $request->getMethod().'&%2F&'.$this->percentEncode($query);
+
+        return base64_encode(hash_hmac('sha1', $source, $this->config['accessSecret'].'&', true));
     }
 
     protected function percentEncode($str)
@@ -56,6 +59,7 @@ class PrepareCommonParamsMiddleware
         $res = preg_replace('/\+/', '%20', $res);
         $res = preg_replace('/\*/', '%2A', $res);
         $res = preg_replace('/%7E/', '~', $res);
+
         return $res;
     }
 }

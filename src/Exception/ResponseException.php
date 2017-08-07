@@ -20,12 +20,11 @@ class ResponseException extends SDKException
 
     protected $responseData;
 
-
     public function __construct(BadResponseException $e)
     {
         $this->request = $e->getRequest();
         $this->response = $e->getResponse();
-        $this->responseData = \GuzzleHttp\json_decode((string)$this->response->getBody(), true);
+        $this->responseData = \GuzzleHttp\json_decode((string) $this->response->getBody(), true);
 
         parent::__construct($e->getMessage(), $e->getCode());
     }
