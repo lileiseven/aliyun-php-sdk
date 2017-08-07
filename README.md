@@ -18,7 +18,7 @@ use Monolog\Handler\StreamHandler;
 use Aliyun\SDK\SDK;
 
 $logger = new Logger('aliyun');
-$logger->pushHandler(new StreamHandler('/tmp/aliyun-php-sdk-unittest.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler('/tmp/aliyun-php-sdk.log', Logger::INFO));
 
 $sdk = new SDK('<ACCESS KEY ID>', '<ACCESS SECRET', $logger);
 
