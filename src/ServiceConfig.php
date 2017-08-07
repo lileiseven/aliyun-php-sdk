@@ -14,7 +14,8 @@ class ServiceConfig
         'domain' => [
             'entrypoint' => 'http://domain.aliyuncs.com/',
             'version' => '2016-05-11',
-        ]
+        ],
+        // 陆续增加新的 Service 配置...
     ];
 
     public function get($service)
