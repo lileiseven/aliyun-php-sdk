@@ -22,7 +22,7 @@ use Aliyun\SDK\SDK;
 $logger = new Logger('aliyun');
 $logger->pushHandler(new StreamHandler('/tmp/aliyun-php-sdk.log', Logger::INFO));
 
-$sdk = new SDK('<ACCESS KEY ID>', '<ACCESS SECRET', $logger);
+$sdk = new SDK('<ACCESS KEY ID>', '<ACCESS SECRET>', $logger);
 
 // 查询域名 aliyun.com 的 Whois 信息
 $result = $sdk->call('domain', 'GetWhoisInfo', [
